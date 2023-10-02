@@ -45,6 +45,12 @@ rungnu:
 runompgnu:
 	$(CC) -Ofast -fopenmp -std=gnu11 run.c  -lm  -o run
 
+.PHONY: wasm-wasi
+wasm-wasi:
+	$(WASI_SDK_PATH)/bin/clang --sysroot=$(WASI_SDK_PATH)/share/wasi-sysroot \
+	--target=wasm32-wasi -D_WASI_EMULATED_MMAN run.c -o run.wasm \
+	-lwasi-emulated-mman
+
 # run all tests
 .PHONY: test
 test:
